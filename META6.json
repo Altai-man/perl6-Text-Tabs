@@ -7,6 +7,6 @@
     "provides"     : {
         "Text::Tabs" : "lib/Text/Tabs.pm6"
     },
-    "author"       : [ "github:Altai-man" ],
+    "author"       : "github:Altai-man",
     "support"      : { "source" : "git://github.com/Altai-man/perl6-Text-Tabs-Wrap.git" }
 }
