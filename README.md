@@ -11,20 +11,23 @@ say expand(@lines-with-tabs, 4);
 # Text with TAB characters replaced by 4 spaces.
 say unexpand(@lines-without-tabs, 8);
 # Opposite, but 8 spaces is one TAB character now.
-# In future:
+
+# Text paragraph formatter:
 use Text::Wrap;
-wrap("\t", "", $text);
-fill("\t", "", $text);
+wrap("\t", "|", $text);
+fill("\t", "", @text);
 ```
 
 # DESCRIPTION
 
-It's a simple port of Perl 5 two libraries: Text::Tabs and Text::Wrap, which in turn just Perlish implementation of expand/unexpand utilites and a little paragraph formatter. First module is mostly done and only need proper tests/docs, second is still undone.
+It's a simple port of Perl 5 two libraries: Text::Tabs and Text::Wrap, which in turn just Perlish implementation of expand/unexpand utilites and a little paragraph formatter.
+
+Interface was simplified and is known to be incompatible with original modules. Though the situation can be improved in the future, it's still not granted.
 
 # BUGS
 
 To report bugs or request features, please use
-https://github.com/zoffixznet/perl6-Text-Tabs-Wrap/issues
+https://github.com/Altai-man/perl6-Text-Tabs-Wrap/issues
 
 But consider that this module is still at development stage.
 
