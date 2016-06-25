@@ -16,7 +16,7 @@ our sub expand(@input, $tabstop = 8 --> Array) is export {
     $output;
 }
 
-sub unexpand(@input, $tabstop = 8 --> Array) is export {
+our sub unexpand(@input, $tabstop = 8 --> Array) is export {
     my $output;
     my $ts_as_space = " " x $tabstop;
     my @lines;
