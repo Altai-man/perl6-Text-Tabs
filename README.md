@@ -24,6 +24,8 @@ It's a simple port of Perl 5 two libraries: Text::Tabs and Text::Wrap, which in 
 
 Interface was simplified and is known to be incompatible with original modules. Though the situation can be improved in the future, it's still not granted.
 
+Since `taint` feature from Perl 5 is not yet implemented, this port is incomplete and more direct port is unable to be finished yet.
+
 # BUGS
 
 To report bugs or request features, please use
