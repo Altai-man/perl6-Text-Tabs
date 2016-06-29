@@ -1,13 +1,12 @@
 {
     "perl"         : "6.c",
-    "name"         : "Text::Tabs-Wrap",
+    "name"         : "Text::Tabs-"
     "version"      : "0.1",
-    "description"  : "Perl 6 port of Perl's Text::Tabs and Text::Wrap",
+    "description"  : "Perl 6 port of Perl's Text::Tabs",
     "depends"      : [ ],
     "provides"     : {
         "Text::Tabs" : "lib/Text/Tabs.pm6",
-        "Text::Wrap" : "lib/Text/Wrap.pm6"
     },
     "author"       : "github:Altai-man",
-    "support"      : { "source" : "git://github.com/Altai-man/perl6-Text-Tabs-Wrap.git" }
+    "support"      : { "source" : "git://github.com/Altai-man/perl6-Text-Tabs.git" }
 }
