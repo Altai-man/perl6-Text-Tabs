@@ -1,4 +1,4 @@
-# NAME
+# NAME [![Build Status](https://travis-ci.org/Altai-man/perl6-Text-Tabs.svg?branch=master)](https://travis-ci.org/Altai-man/perl6-Text-Tabs)
 
 Text::Tabs - Perl 6 implementation of `expand` and `unexpand` utilities.
 
@@ -14,7 +14,7 @@ say unexpand(@lines-without-tabs, 8);
 
 # DESCRIPTION
 
-It's a simple port of Perl 5 module: Text::Tabs, which in turn just Perlish implementation of expand/unexpand utilities.
+It's a simple port of Perl 5 module `Text::Tabs`, which in turn just Perlish implementation of expand/unexpand utilities.
 
 # BUGS
 
