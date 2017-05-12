@@ -9,5 +9,5 @@
         "Text::Tabs" : "lib/Text/Tabs.pm6"
     },
     "author"       : "github:Altai-man",
-    "source-uri"   : "git://github.com/Altai-man/perl6-Text-Tabs.git"
+    "source-url"   : "git://github.com/Altai-man/perl6-Text-Tabs.git"
 }
