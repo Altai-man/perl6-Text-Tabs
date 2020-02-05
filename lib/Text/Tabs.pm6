@@ -2,17 +2,33 @@ use v6;
 
 unit module Text::Tabs;
 
-our sub expand(@input, $tabstop = 8 --> Array) is export {
+multi sub expand(@input, Int $tabstop = 8 --> Array) is export {
     my Array $output = [];
     for @input -> $el {
         my $tmp = '';
-        for (split(/^/, $el, :skip-empty)) {
-            my $l = $_;
-            $l .= subst(/\t/, {" " x $tabstop}, :g);
-            $tmp ~= $l;
+        for $el.split(/^/, :skip-empty) -> Str $line {
+            $tmp ~= expand($line, $tabstop);
         }
         $output.push($tmp);
     }
+    $output;
+}
+
+multi sub expand(Str $input, Int $tabstop = 8 --> Str) is export {
+    my $output = q{};
+    my $position = 0;
+    for $input.split(/\t/, :v) -> $part {
+        if ($part eq "\t") {
+            my $distance-from-stop = $position % $tabstop;
+            my $tab-length = $tabstop - $distance-from-stop;
+            $output ~= q{ } x $tab-length;
+            $position += $tab-length;
+        } else {
+            $position += $part.chars;
+            $output ~= $part;
+        }
+    }
+
     $output;
 }
 

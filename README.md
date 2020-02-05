@@ -6,15 +6,20 @@ Text::Tabs - Perl 6 implementation of `expand` and `unexpand` utilities.
 
 ```
 use Text::Tabs;
-say expand(@lines-with-tabs, 4);
+
 # Text with TAB characters replaced by 4 spaces.
-say unexpand(@lines-without-tabs, 8);
+say expand(@lines-with-tabs, 4);
+say expand("this\tline has \t\t tabs", 4);
+
 # Opposite, but 8 spaces is one TAB character now.
+say unexpand(@lines-without-tabs, 8);
 ```
 
 # DESCRIPTION
 
-It's a simple port of Perl 5 module `Text::Tabs`, which in turn just Perlish implementation of expand/unexpand utilities.
+It's a slightly expanded port of Perl 5 module `Text::Tabs`, which in turn just Perlish implementation of expand/unexpand utilities.
+
+Unlike the Perl5 version, Unexpand does not recognize tab-stops at this time.
 
 # BUGS
 
