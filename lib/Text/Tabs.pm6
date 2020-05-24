@@ -1,26 +1,26 @@
 use v6;
 
-unit module Text::Tabs;
+unit module Text::Tabs:ver<0.2.0>;
 
-multi sub expand(@input, Int $tabstop = 8 --> Array) is export {
+sub expand(Int :ts(:$tab-stop) = 8, *@input --> Iterable) is export {
     my Array $output = [];
     for @input -> $el {
         my $tmp = '';
         for $el.split(/^/, :skip-empty) -> Str $line {
-            $tmp ~= expand($line, $tabstop);
+            $tmp ~= expand-one($line, $tab-stop);
         }
         $output.push($tmp);
     }
     $output;
 }
 
-multi sub expand(Str $input, Int $tabstop = 8 --> Str) is export {
+sub expand-one(Str $input, Int $tab-stop = 8 --> Str) {
     my $output = q{};
     my $position = 0;
     for $input.split(/\t/, :v) -> $part {
         if ($part eq "\t") {
-            my $distance-from-stop = $position % $tabstop;
-            my $tab-length = $tabstop - $distance-from-stop;
+            my $distance-from-stop = $position % $tab-stop;
+            my $tab-length = $tab-stop - $distance-from-stop;
             $output ~= q{ } x $tab-length;
             $position += $tab-length;
         } else {
@@ -32,9 +32,9 @@ multi sub expand(Str $input, Int $tabstop = 8 --> Str) is export {
     $output;
 }
 
-our sub unexpand(@input, $tabstop = 8 --> Array) is export {
+sub unexpand(Int :ts(:$tab-stop) = 8, *@input --> Iterable) is export {
     my $output;
-    my $ts_as_space = " " x $tabstop;
+    my $ts_as_space = " " x $tab-stop;
     my @lines;
 
     for @input -> $el {
@@ -43,7 +43,7 @@ our sub unexpand(@input, $tabstop = 8 --> Array) is export {
         my @buff;
         for @lines -> $line {
             my $replaced = $line
-            .comb($tabstop)
+            .comb($tab-stop)
             .map({ $_ eq $ts_as_space ?? "\t" !! $_ })
             .join('');
             @buff.push($replaced);

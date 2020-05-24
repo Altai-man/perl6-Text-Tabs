@@ -8,11 +8,11 @@ Text::Tabs - Perl 6 implementation of `expand` and `unexpand` utilities.
 use Text::Tabs;
 
 # Text with TAB characters replaced by 4 spaces.
-say expand(@lines-with-tabs, 4);
-say expand("this\tline has \t\t tabs", 4);
+say expand(@lines-with-tabs, :tab-stop(4));
+say expand("these\tlines\n\nhave \t\t tabs\n", "in\tthem\ntoo\n", :ts(4));
 
 # Opposite, but 8 spaces is one TAB character now.
-say unexpand(@lines-without-tabs, 8);
+say unexpand(@lines-with-spaces, :tab-stop(8));
 ```
 
 # DESCRIPTION
