@@ -13,13 +13,12 @@ say expand("these\tlines\n\nhave \t\t tabs\n", "in\tthem\ntoo\n", :ts(4));
 
 # Opposite, but 8 spaces is one TAB character now.
 say unexpand(@lines-with-spaces, :tab-stop(8));
+say unexpand("tab >   < here");  # Default tab stop = 8
 ```
 
 # DESCRIPTION
 
 It's a slightly expanded port of Perl 5 module `Text::Tabs`, which in turn just Perlish implementation of expand/unexpand utilities.
-
-Unlike the Perl5 version, Unexpand does not recognize tab-stops at this time.
 
 # BUGS
 

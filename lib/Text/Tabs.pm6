@@ -1,54 +1,36 @@
 use v6;
 
-unit module Text::Tabs:ver<0.2.0>;
+unit module Text::Tabs:ver<0.2.1>;
 
-sub expand(Int :ts(:$tab-stop) = 8, *@input --> Iterable) is export {
-    my Array $output = [];
-    for @input -> $el {
-        my $tmp = '';
-        for $el.split(/^/, :skip-empty) -> Str $line {
-            $tmp ~= expand-one($line, $tab-stop);
+sub expand(Int :ts(:$tab-stop) = 8, *@input) is export {
+    process-by-lines @input, -> $line {
+        my ($result, @chunks) = $line.split("\t");
+        for @chunks {
+            $result ~= ' ' x $tab-stop - $result.chars % $tab-stop;
+            $result ~= $_;
         }
-        $output.push($tmp);
-    }
-    $output;
+
+        $result;
+    };
 }
 
-sub expand-one(Str $input, Int $tab-stop = 8 --> Str) {
-    my $output = q{};
-    my $position = 0;
-    for $input.split(/\t/, :v) -> $part {
-        if ($part eq "\t") {
-            my $distance-from-stop = $position % $tab-stop;
-            my $tab-length = $tab-stop - $distance-from-stop;
-            $output ~= q{ } x $tab-length;
-            $position += $tab-length;
-        } else {
-            $position += $part.chars;
-            $output ~= $part;
-        }
-    }
-
-    $output;
+sub unexpand(Int :ts(:$tab-stop) = 8, *@input) is export {
+    process-by-lines @input, -> $line {
+        my @e = expand($line, :$tab-stop).comb($tab-stop);
+        # Unless ends on a tab-stop, trailing spaces must not be converted to tab
+        my @last-one = @e.pop if @e and @e[*-1].chars < $tab-stop;
+        s/ ' ' ** 2..* $ /\t/ for @e;
+        (@e, @last-one).flat.join;
+    };
 }
 
-sub unexpand(Int :ts(:$tab-stop) = 8, *@input --> Iterable) is export {
-    my $output;
-    my $ts_as_space = " " x $tab-stop;
-    my @lines;
-
-    for @input -> $el {
-        @lines = split("\n", $el, :skip-empty);
-        @lines = [expand(@lines).flat];
-        my @buff;
-        for @lines -> $line {
-            my $replaced = $line
-            .comb($tab-stop)
-            .map({ $_ eq $ts_as_space ?? "\t" !! $_ })
-            .join('');
-            @buff.push($replaced);
-        }
-        $output.push(join("\n", @buff));
+sub process-by-lines(@input, &process) {
+    @input.map: {
+        # To preserve line endings, use .comb instead of .lines
+        .comb(/:r ^^ \N* \n?/)
+        # Each line gets handled separately
+        .map(&process)
+        # Then joined back together to map back onto a single string
+        .join
     }
-    $output;
 }

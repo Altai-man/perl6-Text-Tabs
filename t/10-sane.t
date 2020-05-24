@@ -4,7 +4,7 @@ use Test;
 use lib 'lib';
 use Text::Tabs;
 
-plan 16;
+plan 20;
 
 is expand("		", :tab-stop(4)), "        ", 'two tabs were converted to 8 spaces';
 is unexpand("            ", :tab-stop(4)), "			", '12 spaces were converted to 3 tabs.';
@@ -24,3 +24,8 @@ is expand("123456\t7", :tab-stop(4)), '123456  7', 'Tab in 7th position';
 is expand("1234567\t", :tab-stop(4)), '1234567 ', 'Tab in 8th position';
 is expand("f\t\too"), 'f               oo', '2 middle tabs within text';
 is expand("\tfoo\tbar"), '        foo     bar', 'mixed tabs/text';
+
+is unexpand("foo" ~ ' ' x 5 ~ "bar"), "foo\tbar", 'Exactly one tabstop';
+is unexpand("foo" ~ ' ' x 7 ~ "bar"), "foo\t  bar", 'One tabstop and extra';
+is unexpand("foo" ~ ' ' x 13 ~ "bar"), "foo\t\tbar", 'Exactly two tabstops';
+is unexpand("foo" ~ ' ' x 15 ~ "bar"), "foo\t\t  bar", 'Two tabstops and extra';
