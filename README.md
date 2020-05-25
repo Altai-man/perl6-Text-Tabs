@@ -1,6 +1,6 @@
 # NAME [![Build Status](https://travis-ci.org/Altai-man/perl6-Text-Tabs.svg?branch=master)](https://travis-ci.org/Altai-man/perl6-Text-Tabs)
 
-Text::Tabs - Perl 6 implementation of `expand` and `unexpand` utilities.
+Text::Tabs - Raku implementation of `expand` and `unexpand` utilities.
 
 # SYNOPSIS
 
