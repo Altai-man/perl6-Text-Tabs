@@ -4,11 +4,11 @@
     "license"      : "Artistic-2.0",
     "tags"         : ["CPAN5"],
     "version"      : "0.2.1",
-    "description"  : "Perl 6 port of Perl's Text::Tabs",
+    "description"  : "Raku port of Perl's Text::Tabs",
     "depends"      : [ ],
     "provides"     : {
         "Text::Tabs" : "lib/Text/Tabs.pm6"
     },
-    "authors"       : [ "github:Altai-man" ],
+    "authors"       : [ "github:softmoth", "github:Altai-man" ],
     "source-url"   : "git://github.com/Altai-man/perl6-Text-Tabs.git"
 }
