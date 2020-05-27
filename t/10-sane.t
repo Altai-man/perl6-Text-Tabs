@@ -4,7 +4,7 @@ use Test;
 use lib 'lib';
 use Text::Tabs;
 
-plan 20;
+plan 24;
 
 is expand("		", :tab-stop(4)), "        ", 'two tabs were converted to 8 spaces';
 is unexpand("            ", :tab-stop(4)), "			", '12 spaces were converted to 3 tabs.';
@@ -29,3 +29,11 @@ is unexpand("foo" ~ ' ' x 5 ~ "bar"), "foo\tbar", 'Exactly one tabstop';
 is unexpand("foo" ~ ' ' x 7 ~ "bar"), "foo\t  bar", 'One tabstop and extra';
 is unexpand("foo" ~ ' ' x 13 ~ "bar"), "foo\t\tbar", 'Exactly two tabstops';
 is unexpand("foo" ~ ' ' x 15 ~ "bar"), "foo\t\t  bar", 'Two tabstops and extra';
+
+my $tabs = "1\n2\ttwo\n3\tthree\tthree\n";
+my $spaces4 = "1\n2   two\n3   three   three\n";
+my $spaces8 = "1\n2       two\n3       three   three\n";
+is-deeply expand($tabs), $spaces8, "expand(Str) is a Str";
+is-deeply unexpand($spaces8), $tabs, "expand(Str) is a Str";
+is-deeply expand(:ts(4), $tabs), $spaces4, "expand(:ts, Str) is a Str";
+is-deeply unexpand(:ts(4), $spaces4), $tabs, "expand(:ts, Str) is a Str";

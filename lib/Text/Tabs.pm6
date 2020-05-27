@@ -2,7 +2,7 @@ use v6;
 
 unit module Text::Tabs:ver<0.2.1>;
 
-sub expand(Int :ts(:$tab-stop) = 8, *@input) is export {
+multi sub expand(Int :ts(:$tab-stop) = 8, *@input) is export {
     process-by-lines @input, -> $line {
         my ($result, @chunks) = $line.split("\t");
         for @chunks {
@@ -14,7 +14,7 @@ sub expand(Int :ts(:$tab-stop) = 8, *@input) is export {
     };
 }
 
-sub unexpand(Int :ts(:$tab-stop) = 8, *@input) is export {
+multi sub unexpand(Int :ts(:$tab-stop) = 8, *@input) is export {
     process-by-lines @input, -> $line {
         my @e = expand($line, :$tab-stop).comb($tab-stop);
         # Unless ends on a tab-stop, trailing spaces must not be converted to tab
@@ -23,6 +23,10 @@ sub unexpand(Int :ts(:$tab-stop) = 8, *@input) is export {
         (@e, @last-one).flat.join;
     };
 }
+
+# Special case single Stringy arg to return a Str
+multi sub   expand(Stringy $input, *%args) is export { callsame().first }
+multi sub unexpand(Stringy $input, *%args) is export { callsame().first }
 
 sub process-by-lines(@input, &process) {
     @input.map: {
