@@ -3,7 +3,7 @@
     "name"         : "Text::Tabs",
     "license"      : "Artistic-2.0",
     "tags"         : ["CPAN5"],
-    "version"      : "0.2.1",
+    "version"      : "1.0",
     "description"  : "Raku port of Perl's Text::Tabs",
     "depends"      : [ ],
     "provides"     : {
